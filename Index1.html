@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Luxury Experience</title>
+  <style>
+    :root {
+      --gold: #ffd166;
+      --gold-dark: #b8860b;
+      --cream: #fff8e8;
+      --purple: #2d163d;
+      --text: #fdf7eb;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 209, 102, 0.24), transparent 26%),
+        linear-gradient(135deg, #120b1d 0%, #2b1538 45%, #140d1f 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 22px;
+      border: 1px solid rgba(255, 209, 102, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 18px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .nav a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 30px;
+      align-items: center;
+      padding: 48px 0 36px;
+    }
+
+    .hero-card {
+      padding: 34px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255, 209, 102, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.16);
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 3.35rem);
+      line-height: 1.1;
+      margin: 0 0 14px;
+      color: white;
+    }
+
+    .hero p {
+      font-size: 1.06rem;
+      line-height: 1.8;
+      color: #f4e8cb;
+      margin-bottom: 20px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+      filter: brightness(1.08);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), #ffe08a);
+      color: #4a2d00;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(255, 209, 102, 0.45);
+    }
+
+    .showcase {
+      position: relative;
+      padding: 30px;
+      border-radius: 28px;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255, 209, 102, 0.24);
+      box-shadow: inset 0 0 40px rgba(255, 209, 102, 0.12);
+    }
+
+    .crown {
+      font-size: 7rem;
+      filter: drop-shadow(0 10px 20px rgba(255, 209, 102, 0.35));
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .spark {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 18px var(--gold);
+      animation: twinkle 1.6s infinite ease-in-out;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .feature {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+    }
+
+    .feature .icon { font-size: 1.5rem; margin-bottom: 8px; }
+
+    .feature h3 { margin: 0 0 6px; font-size: 1rem; }
+
+    .feature p { margin: 0; color: #f7e8c5; font-size: 0.95rem; }
+
+    .quote {
+      margin-top: 30px;
+      padding: 24px;
+      border-radius: 24px;
+      text-align: center;
+      background: linear-gradient(90deg, rgba(255,209,102,0.12), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255, 209, 102, 0.25);
+      font-size: 1.08rem;
+      color: #fff2c8;
+    }
+
+    .entrance-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 4, 16, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .entrance-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .castle-door {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      background: linear-gradient(180deg, #4b2d1a, #1b0f08);
+      border: 4px solid #d8a64b;
+      box-shadow: inset 0 0 40px rgba(255,209,102,0.25);
+      transition: transform 1.2s ease;
+      z-index: 1;
+    }
+
+    .castle-door.left {
+      left: 0;
+      transform: translateX(-100%);
+      border-right: 2px solid #f5d98b;
+    }
+
+    .castle-door.right {
+      right: 0;
+      transform: translateX(100%);
+      border-left: 2px solid #f5d98b;
+    }
+
+    .entrance-overlay.active .castle-door.left {
+      transform: translateX(0);
+    }
+
+    .entrance-overlay.active .castle-door.right {
+      transform: translateX(0);
+    }
+
+    .castle-message {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 32px 36px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,209,102,0.45);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.6s ease 0.8s;
+    }
+
+    .entrance-overlay.active .castle-message {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .castle-message h2 {
+      margin: 0 0 10px;
+      color: var(--gold);
+      font-size: 2rem;
+    }
+
+    .castle-message p {
+      margin: 0;
+      color: #fff6d8;
+      font-size: 1rem;
+    }
+
+    .luxury-card {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 1000;
+      padding: 16px 20px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255,209,102,0.16), rgba(255,255,255,0.08));
+      border: 1px solid rgba(255,209,102,0.35);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+      transform: translateX(140%);
+      transition: transform 0.4s ease;
+      max-width: 300px;
+    }
+
+    .luxury-card.show {
+      transform: translateX(0);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 28px;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.95rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(0.7); opacity: 0.6; }
+      50% { transform: scale(1.3); opacity: 1; }
+    }
+
+    @media (max-width: 780px) {
+      .hero { grid-template-columns: 1fr; }
+      .features { grid-template-columns: 1fr; }
+      .nav { border-radius: 20px; }
+      .nav a { margin-left: 10px; font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="nav">
+      <div class="brand">Royal Glow</div>
+      <div>
+        <a href="#about">About</a>
+        <a href="#magic">Magic</a>
+        <a href="#royal">Royal</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-card">
+        <div class="eyebrow">A grand, luxurious experience</div>
+        <h1>Make them feel like royalty in the most amazing way.</h1>
+        <p>Soft gold, elegant glow, and a touch of magic — this page is designed to feel rich, warm, and unforgettable. It brings a premium royal mood that feels truly special.</p>
+        <div class="button-row">
+          <button class="btn btn-primary">Enter the Royal World in the Most Amazing Way</button>
+          <button class="btn btn-secondary">Feel the Luxury Like Never Before</button>
+        </div>
+
+        <div class="features" id="about">
+          <div class="feature">
+            <div class="icon">👑</div>
+            <h3>Majestic</h3>
+            <p>Luxury styling with a bold royal identity.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">✨</div>
+            <h3>Glowing</h3>
+            <p>Soft shimmer and elegant motion create charm.</p>
+          </div>
+          <div class="feature">
+            <div class="icon">💎</div>
+            <h3>Extraordinary</h3>
+            <p>Every detail feels polished and memorable.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="showcase" id="magic">
+        <div class="spark" style="top: 20%; left: 25%; animation-delay: 0s;"></div>
+        <div class="spark" style="top: 35%; right: 20%; animation-delay: 0.5s;"></div>
+        <div class="spark" style="bottom: 22%; left: 18%; animation-delay: 1s;"></div>
+        <div class="spark" style="bottom: 18%; right: 28%; animation-delay: 1.2s;"></div>
+        <div class="crown">👑</div>
+      </div>
+    </section>
+
+    <div class="quote" id="royal">
+      “You deserve elegance, admiration, and a moment that feels truly royal.”
+    </div>
+
+    <footer>Crafted with gold, grace, and a little sparkle.</footer>
+  </div>
+
+  <div class="entrance-overlay" id="entranceOverlay">
+    <div class="castle-door left"></div>
+    <div class="castle-door right"></div>
+    <div class="castle-message">
+      <h2>Welcome to the Royal World</h2>
+      <p>The gates are open, and a majestic welcome awaits.</p>
+    </div>
+  </div>
+
+  <div class="luxury-card" id="luxuryCard">
+    <strong>Luxury unlocked ✨</strong>
+    <div style="margin-top: 6px; color: #f8e9b8;">A grand, unforgettable experience is now shining around you.</div>
+  </div>
+
+  <script>
+    const entranceOverlay = document.getElementById('entranceOverlay');
+    const luxuryCard = document.getElementById('luxuryCard');
+    const buttons = document.querySelectorAll('.btn');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        button.animate([
+          { transform: 'scale(1)' },
+          { transform: 'scale(1.04)' },
+          { transform: 'scale(1)' }
+        ], { duration: 280, easing: 'ease-out' });
+
+        if (button.classList.contains('btn-primary')) {
+          entranceOverlay.classList.add('active');
+          setTimeout(() => {
+            entranceOverlay.classList.remove('active');
+          }, 2400);
+        } else {
+          luxuryCard.classList.add('show');
+          clearTimeout(window.luxuryTimer);
+          window.luxuryTimer = setTimeout(() => {
+            luxuryCard.classList.remove('show');
+          }, 2200);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
